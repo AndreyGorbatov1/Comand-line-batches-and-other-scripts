@@ -1,0 +1,37 @@
+@echo off
+
+time /T
+
+chcp 1251
+echo.
+
+SQLCMD -S server_name -d database_name -E -i "C:\Users\..." -h -1 > C:\Users\...
+set /p raw1=< C:\Users\...
+REM echo '%raw1%'
+set /a value1=%raw1%
+echo HO:
+echo '%value1%'
+time /T
+echo.
+
+SQLCMD -S server_name  -d database_name -E -i "C:\Users\..." -h -1 > C:\Users\...
+set /p raw2=< C:\Users\...
+REM echo '%raw2%'
+set /a value2=%raw2%
+echo Mirror:
+echo '%value2%'
+time /T
+echo.
+echo.
+
+if %value1% EQU %value2% ( 
+echo OK 
+) 
+
+if %value1% NEQ %value2% (
+	echo SUMS ARE NOT EQUAL
+	powershell -executionpolicy bypass -File C:\Users\...\mail.ps1
+)
+
+echo.
+pause
