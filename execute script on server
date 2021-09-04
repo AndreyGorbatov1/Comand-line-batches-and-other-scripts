@@ -1,0 +1,5 @@
+--Раскатка скрипта на сервере
+
+chcp 1251
+sqlcmd.exe -S server -d database -i "script.sql"
+pause
